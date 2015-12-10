@@ -1,0 +1,20 @@
+group 'web-shop'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-context:4.2.3.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.2.3.RELEASE'
+    compile 'org.springframework:spring-web:4.2.3.RELEASE'
+    compile 'org.springframework:spring-aop:4.2.3.RELEASE'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
