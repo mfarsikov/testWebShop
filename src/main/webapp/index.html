@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="MainScript.js"></script>
+</head>
+<body>
+
+<div ng-controller="MyController">
+
+    <button ng-click="request()">request items</button>
+
+    <ul>
+        <li ng-repeat="book in books">{{book.author}} {{book.title}}</li>
+    </ul>
+</div>
+
+</body>
+</html>
