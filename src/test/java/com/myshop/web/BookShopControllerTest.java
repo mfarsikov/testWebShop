@@ -31,7 +31,7 @@ public class BookShopControllerTest {
         MockMvc mockMvc = standaloneSetup(controller)
                 .build();
 
-        mockMvc.perform(get("/shop/books").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/shop/books/").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(result -> System.out.println("result: " + result))
                 .andExpect(jsonPath("$[0].id", is(1)))

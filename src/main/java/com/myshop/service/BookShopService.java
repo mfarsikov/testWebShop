@@ -12,4 +12,9 @@ import java.util.List;
 public interface BookShopService {
 
     List<Book> bookList();
+
+
+    void addBook(Book book);
+
+    boolean isBookExist(Book book);
 }

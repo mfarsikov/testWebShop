@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 @Repository
 public class TestBookDAO implements BookDAO {
 
-    List<Book> books = Arrays.asList(new Book(1, "Mr biggls", "Spring in Action"),
-                                     new Book(2, "Mr brightside", "Java 8 in action"));
+    List<Book> books = new ArrayList(Arrays.asList(new Book(1, "Mr biggls", "Spring in Action"),
+                                     new Book(2, "Mr brightside", "Java 8 in action")));
 
     @Override
     public Optional<Book> findBookById(Integer id) {
@@ -36,5 +36,10 @@ public class TestBookDAO implements BookDAO {
     @Override
     public List<Book> getAllBooks() {
         return books;
+    }
+
+    @Override
+    public void addBook(Book book) {
+        books.add(book);
     }
 }

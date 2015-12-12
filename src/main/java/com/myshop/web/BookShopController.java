@@ -3,11 +3,14 @@ package com.myshop.web;
 import com.myshop.book.Book;
 import com.myshop.service.BookShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -25,10 +28,28 @@ public class BookShopController {
         this.bookShop = bookShop;
     }
 
-    @RequestMapping(value = "/books", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/books/", method=RequestMethod.GET)
     @ResponseBody
-    public List<Book> items() {
-        return bookShop.bookList();
+    public ResponseEntity<List<Book>> items() {
+
+        List<Book> books = bookShop.bookList();
+        if(books == null) {
+            return new ResponseEntity<List<Book>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = "/book/", method = RequestMethod.POST)
+    public ResponseEntity<Void> addNewBook(@RequestBody Book book, UriComponentsBuilder builder){
+
+        if(bookShop.isBookExist(book)){
+            new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+        bookShop.addBook(book);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/book/{id}").buildAndExpand(book.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
 }

@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Service
 public class BookShop implements BookShopService {
+
     private BookDAO bookDAO;
 
     @Autowired
@@ -23,4 +24,15 @@ public class BookShop implements BookShopService {
     public List<Book> bookList() {
         return bookDAO.getAllBooks();
     }
+
+    @Override
+    public void addBook(Book book) {
+        bookDAO.addBook(book);
+    }
+
+    @Override
+    public boolean isBookExist(Book book) {
+        return bookDAO.findBookById(book.getId()) != null;
+    }
+
 }

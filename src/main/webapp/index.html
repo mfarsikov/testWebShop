@@ -4,18 +4,31 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <meta charset="UTF-8">
     <title></title>
-    <script src="MainScript.js"></script>
+    <script src="app.js"></script>
+    <script src="book_service.js"></script>
+    <script src="book_controller.js"></script>
 </head>
 <body>
 
-<div ng-controller="MyController">
+<div ng-controller="BookController as bC">
 
-    <button ng-click="request()">request items</button>
+
+    <form ng-submit="bC.submit()" name="myForm" >
+        Book id:    <br/><input type="text" ng-model="bC.book.id">    <br/><br/>
+        Title:      <br/><input type="text" ng-model="bC.book.title"> <br/><br/>
+        Author:     <br/><input type="text" ng-model="bC.book.author">    <br/><br/>
+
+        <input type="submit" value ="Add">
+
+    </form>
+
+
+    <button ng-click="bC.getAllbooks()">request items</button>
 
     <ul>
-        <li ng-repeat="book in books">{{book.author}} {{book.title}}</li>
+        <li ng-repeat="book in bC.books">{{book.author}} {{book.title}}</li>
     </ul>
-</div>
 
+</div>
 </body>
 </html>
