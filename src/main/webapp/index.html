@@ -7,28 +7,50 @@
     <script src="app.js"></script>
     <script src="book_service.js"></script>
     <script src="book_controller.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
 
 <div ng-controller="BookController as bC">
 
-
-    <form ng-submit="bC.submit()" name="myForm" >
-        Book id:    <br/><input type="text" ng-model="bC.book.id">    <br/><br/>
-        Title:      <br/><input type="text" ng-model="bC.book.title"> <br/><br/>
-        Author:     <br/><input type="text" ng-model="bC.book.author">    <br/><br/>
-
-        <input type="submit" value ="Add">
-
-    </form>
-
-
-    <button ng-click="bC.getAllbooks()">request items</button>
-
-    <ul>
-        <li ng-repeat="book in bC.books">{{book.author}} {{book.title}}</li>
-    </ul>
-
+    <div class="col-sm-12">
+        <form ng-submit="bC.submit()" name="myForm" class="col-sm-3">
+            <div class="form-group">
+                <label class="control-label" for="id">Book id:</label>
+                <input class="form-control" id="id" type="text" ng-model="bC.book.id">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="title">Title:</label>
+                <input class="form-control" id="title" type="text" ng-model="bC.book.title">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="author">Author:</label>
+                <input class="form-control" id="author" type="text" ng-model="bC.book.author">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-default" type="submit" value="Add">
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Author</th>
+                <th>Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="book in bC.books">
+                <td>{{book.id}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.title}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>
