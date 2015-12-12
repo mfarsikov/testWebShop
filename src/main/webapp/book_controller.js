@@ -3,45 +3,43 @@
  */
 'use strict';
 
-App.controller('BookController',['$scope', 'BookService', function($scope, BookService){
-    var self = this;
-    self.book = {id:null, title:'', author:''};
-    self.books = {};
+App.controller('BookController', ['$scope', 'BookService', function ($scope, BookService) {
+    var bookController = this;
+    bookController.book = {id: null, title: '', author: ''};
+    bookController.books = {};
 
-    self.getAllBooks = function(){
-        BookService.getAllBooks().
-            then(       function(b){
-                            self.books = b;
-                        },
-                        function(errResponse){
-                            console.error('Error while getting books');
+    bookController.getAllBooks = function () {
+        BookService.getAllBooks()
+            .then(function (books) {
+                    bookController.books = books;
+                },
+                function (errResponse) {
+                    console.error('Error while getting books: ' + JSON.stringify(errResponse));
                 });
     };
 
-    self.getAllBooks();
+    bookController.getAllBooks();
 
-    self.addBook = function(book){
-        BookService.createBook(book).then(self.getAllBooks(), function(errResponse){
-            console.error('error while creating book');
+    bookController.addBook = function (book) {
+        BookService.createBook(book).then(bookController.getAllBooks(), function (errResponse) {
+            console.error('error while creating book: ' + JSON.stringify(errResponse));
         });
     };
 
-    self.submit = function() {
-        console.log(self.book.id);
-        if(self.book.id != null){
-            console.log('Saving New Book', self.book);
-            self.addBook(self.book);
-        }else{
-
+    bookController.submit = function () {
+        console.log(bookController.book.id);
+        if (bookController.book.id != null) {
+            console.log('Saving New Book', bookController.book);
+            bookController.addBook(bookController.book);
+            bookController.reset();
+        } else {
             console.log('hueta');
         }
-        self.reset();
+
     };
 
-    self.reset = function(){
-        self.book={id:null,title:'',author:''};
+    bookController.reset = function () {
+        bookController.book = {id: null, title: '', author: ''};
         $scope.myForm.$setPristine(); //reset Form
     };
-
-
 }]);
