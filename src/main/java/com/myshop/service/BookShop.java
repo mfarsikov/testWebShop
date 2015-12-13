@@ -26,7 +26,7 @@ public class BookShop implements BookShopService {
 
     @PostConstruct
     public void init() {
-        new AtomicInteger(bookDAO.count());
+        counter = new AtomicInteger(bookDAO.count());
     }
 
     @Override
