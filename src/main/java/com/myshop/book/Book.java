@@ -11,10 +11,15 @@ public class Book {
 
     private String author;
 
-    public Book() {}
+    public Book() {
+    }
 
     public Book(Integer id, String author, String title) {
+        this(author, title);
         this.id = id;
+    }
+
+    public Book(String author, String title) {
         this.author = author;
         this.title = title;
     }
@@ -62,5 +67,14 @@ public class Book {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                '}';
     }
 }

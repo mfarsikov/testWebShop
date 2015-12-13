@@ -28,25 +28,22 @@ public class BookShopController {
         this.bookShop = bookShop;
     }
 
-    @RequestMapping(value = "/books", method=RequestMethod.GET)
+    @RequestMapping(value = "/books", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Book>> items() {
         List<Book> books = bookShop.bookList();
-        if(books == null) {
+        if (books.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books", method = RequestMethod.POST)
-    public ResponseEntity<Void> addNewBook(@RequestBody Book book, UriComponentsBuilder builder){
-        if(bookShop.isBookExist(book)){
-            new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        bookShop.addBook(book);
+    public ResponseEntity<Void> addNewBook(@RequestBody Book book, UriComponentsBuilder builder) {
+        book = bookShop.addBook(book);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/book/{id}").buildAndExpand(book.getId()).toUri());
+        headers.setLocation(builder.path("shop/books/{id}").buildAndExpand(book.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Optional;
  */
 public interface BookDAO {
 
-    Optional<Book> findBookById(Integer id);
+    Optional<Book> findBookByAuthorAndTitle(String author, String title);
 
     Optional<Book> findBookByTitle(String title);
 
@@ -17,4 +17,6 @@ public interface BookDAO {
     List<Book> getAllBooks();
 
     void addBook(Book book);
+
+    int count();
 }
