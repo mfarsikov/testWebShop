@@ -3,4 +3,4 @@
  */
 'use strict';
 
-var App = angular.module('MyApp', []);
+var App = angular.module('MyApp', ['ngRoute']);

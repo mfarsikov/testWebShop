@@ -1,5 +1,6 @@
 package com.myshop.configuration;
 
+import com.myshop.configuration.security.SecurityConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import java.util.AbstractCollection;
@@ -11,7 +12,7 @@ public class WebShopAppInitializer extends AbstractAnnotationConfigDispatcherSer
 {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RootConfig.class};
+        return new Class<?>[]{SecurityConfig.class, RootConfig.class};
     }
 
     @Override
@@ -23,4 +24,5 @@ public class WebShopAppInitializer extends AbstractAnnotationConfigDispatcherSer
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
+
 }
