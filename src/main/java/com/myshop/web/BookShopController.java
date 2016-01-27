@@ -12,14 +12,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.security.Principal;
 import java.util.List;
 
 /**
  * Created by Kot on 12.12.15.
  */
 @RestController()
-@RequestMapping("/")
+@RequestMapping("/shop")
 public class BookShopController {
 
     private BookShopService bookShop;
@@ -29,7 +28,7 @@ public class BookShopController {
         this.bookShop = bookShop;
     }
 
-    @RequestMapping(value = "shop/books", method = RequestMethod.GET)
+    @RequestMapping(value = "/books", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Book>> items() {
         List<Book> books = bookShop.bookList();
@@ -39,17 +38,12 @@ public class BookShopController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "shop/books", method = RequestMethod.POST)
+    @RequestMapping(value = "/books", method = RequestMethod.POST)
     public ResponseEntity<Void> addNewBook(@RequestBody Book book, UriComponentsBuilder builder) {
         book = bookShop.addBook(book);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("shop/books/{id}").buildAndExpand(book.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "user", method= RequestMethod.POST)
-    public Principal user(Principal user){
-        return user;
     }
 }
