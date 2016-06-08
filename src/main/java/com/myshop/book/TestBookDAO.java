@@ -16,17 +16,17 @@ import java.util.stream.Collectors;
 @Repository
 public class TestBookDAO implements BookDAO {
 
-    List<Book> books = new ArrayList(Arrays.asList(new Book(1, "Mr biggls", "Spring in Action"),
-            new Book(2, "Mr brightside", "Java 8 in action")));
+    List<Book> books = new ArrayList<Book>() {{
+        add(new Book(1, "Mr biggls", "Spring in Action"));
+        add(new Book(2, "Mr brightside", "Java 8 in action"));
+    }};
 
     @Override
     public Optional<Book> findBookByAuthorAndTitle(String author, String title) {
         Predicate<Book> sameAuthor = equalPredicate(Book::getAuthor, author);
         Predicate<Book> sameTitle = equalPredicate(Book::getTitle, title);
 
-        return books.stream()
-                .filter(sameAuthor.and(sameTitle))
-                .findFirst();
+        return books.stream().filter(sameAuthor.and(sameTitle)).findFirst();
     }
 
     public Predicate<Book> equalPredicate(Function<Book, String> stringExtractor, String value) {
@@ -36,17 +36,13 @@ public class TestBookDAO implements BookDAO {
     @Override
     public Optional<Book> findBookByTitle(String title) {
         Predicate<Book> sameTitle = equalPredicate(Book::getTitle, title);
-        return books.stream()
-                .filter(sameTitle)
-                .findFirst();
+        return books.stream().filter(sameTitle).findFirst();
     }
 
     @Override
     public List<Book> findBookByAuthor(String author) {
         Predicate<Book> sameAuthor = equalPredicate(Book::getAuthor, author);
-        return books.stream()
-                .filter(sameAuthor)
-                .collect(Collectors.toList());
+        return books.stream().filter(sameAuthor).collect(Collectors.toList());
     }
 
     @Override
